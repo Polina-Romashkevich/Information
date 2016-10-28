@@ -1,0 +1,68 @@
+#include "stdafx.h"
+#include "math.h"
+#include <iostream>
+
+using namespace std;
+
+void func_1(double, double, double);
+void func_2(double, double, double);
+void func_3(double, double, double);
+void func_4(double, double, double);
+
+const double PI = 3.1415;
+
+void(*functions[])(double, double, double) = 
+{
+	func_1, func_2, func_3, func_4
+};
+
+int _tmain()
+{
+	setlocale(LC_ALL, "rus");
+	double a1,a2,b1,b2,c1,c2;
+	cout << "Введите координаты точек a,b,c" << endl;
+	cin >> a1 >> a2 >> b1 >> b2 >> c1 >> c2;
+	double A, B, C;
+	A = sqrt((b1 - a1)*(b1 - a1) + (b2 - a2)*(b2 - a2));
+	B = sqrt((c1 - b1)*(c1 - b1) + (c2 - b2)*(c2 - b2));
+	C = sqrt((a1 - c1)*(a1 - c1) + (a2 - c2)*(a2 - c2));
+	cout << A << endl;
+	cout << B << endl;
+	cout << C << endl;
+	if (((A + B) > C) && ((B + C) > A) && ((C + A) > B))
+	{
+
+		for (int i = 0; i < sizeof(functions) / sizeof(functions[0]); i++)
+		{
+			functions[i](A, B, C);
+		}
+	}
+	system("pause");
+	return 0;
+}
+
+	void func_1(double A, double B, double C)
+	{
+	cout << "Периметр треугольника=" << (A+B+C) << endl;
+}
+
+	void func_2(double A, double B, double C) 
+	{
+		double p = (A + B + C) / 2;
+	cout << "Площадь треугольника=" << (sqrt(p*(p-A)*(p-B)*(p-C))) << endl;
+}
+
+	void func_3(double A, double B, double C) 
+	{
+		double cosin = ((-A*A + B*B + C*C) / (2 * B*C));
+		double S_op = PI*(A / (2 * sqrt(1 - cosin*cosin)))*(A / (2 * sqrt(1 - cosin*cosin)));
+	cout << "Площадь описанной=" << S_op << endl;
+}
+
+	void func_4(double A, double B, double C) 
+	{
+		double p = (A + B + C) / 2;
+		double cosin = ((-A*A + B*B + C*C) / (2 * B*C));
+		double S_vp = PI*((p - A)*tan((acos(cosin)) / 2))*((p - A)*tan((acos(cosin)) / 2));
+	cout << "Площадь вписанной=" << S_vp<< endl;
+}
