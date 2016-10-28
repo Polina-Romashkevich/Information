@@ -1,0 +1,86 @@
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+const unsigned int DIMENSION1 = 7;
+const unsigned int DIMENSION2 = 7;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	int **arr;
+	int n;
+	cout << "Введите число n" << endl;
+	cin >> n;
+	n--;
+	arr = new int *[DIMENSION1];
+	for (int i = 0; i < DIMENSION1; i++)
+	{
+		arr[i] = new int[DIMENSION2];
+	}
+
+
+	for (int i = 0; i < DIMENSION1; i++)
+	{
+		for (int j = 0; j < DIMENSION2; j++)
+		{
+			arr[i][j] = (i + 1) * 10 + (j + 1);
+		}
+	}
+
+
+	for (int i = 0; i < DIMENSION1; i++)
+	{
+		for (int j = 0; j < DIMENSION2; j++)
+		{
+			cout << setw(4) << arr[i][j];
+		}	
+		cout << endl;
+	}
+	cout << endl;
+
+
+	int str = 0;
+	int f;
+	int max = 0;
+	for (int i = 0; i < DIMENSION1; i++)
+	{
+		for (int j = 0; j <= DIMENSION2; j++)
+		{
+			if ((i == j) && (arr[i][j] > max))
+			{
+				max = arr[i][j];
+				str = i;
+			}
+		}
+	}
+				if (n > DIMENSION1) cout << "Число n не может превышать i" << endl;
+				else
+				{
+					for (int j = 0; j <= DIMENSION2; j++)
+					{
+						f = arr[str][j];
+						arr[str][j] = arr[n][j];
+						arr[n][j] = f;
+					}
+				}
+
+	for (int i = 0; i < DIMENSION1; i++)
+	{
+		for (int j = 0; j < DIMENSION2; j++)
+		{
+			cout << setw(4) << arr[i][j];
+		}
+		cout << endl;
+	}
+
+		for (int i = 0; i < DIMENSION1; i++) 
+		{
+			delete[] arr[i];
+		}
+		delete[] arr;
+		system("pause");
+		return 0;
+}
