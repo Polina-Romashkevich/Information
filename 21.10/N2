@@ -1,0 +1,38 @@
+#include "stdafx.h" 
+#include <iostream> 
+#include <ctime> 
+
+using namespace std;
+
+int _tmain()
+{
+	int number = 12;
+	int* arr;
+	arr = new int[number];
+
+
+	srand(time(NULL));
+	for (int i = 0; i < number; i++)
+	{
+		arr[i] = rand() % 12 + 1;
+	}
+	for (int i = 0; i < number; i++)
+		cout << arr[i] << " ";
+	cout << endl;
+
+	int temp;
+	for (int j = 1; j < number; j += 2)
+	{
+		if (j < number)
+		{
+			temp = arr[j];
+			arr[j] = arr[j - 1];
+			arr[j - 1] = temp;
+		}
+	}
+	for (int i = 0; i < number; i++)
+		cout << arr[i] << " ";
+	cout << endl;
+	system("pause");
+	return 0;
+}
