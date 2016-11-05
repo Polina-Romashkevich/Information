@@ -1,0 +1,36 @@
+#include "stdafx.h" 
+#include <iostream> 
+#include <set> 
+using namespace std;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "Russian");
+	const int size = 5;
+	int array[size];
+	int array1[size];
+	cout << "Введите массив" << endl;
+	for (int i = 0; i < size; i++)
+		cin >> array[i];
+	array1[0] = array[0];
+	int flag = 0;
+	int k = 1;
+	for (int i = 1; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+			if (array[i] == array1[j])
+				flag++;
+		if (flag == 0)
+		{
+			array1[k] = array[i];
+			k++;
+		}
+		flag = 0;
+	}
+	for (int i = 0; i < k; i++)
+	{
+		cout << array1[i] << endl;
+	}
+	system("pause");
+	return 0;
+}
