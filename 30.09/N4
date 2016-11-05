@@ -1,0 +1,31 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+
+
+
+void Bits(int a, int b) 
+{
+	int count = 0;
+	for (int c = a ^ b; c != 0; c = c & (c - 1)) //меняем младший ненулевой разряд на 1, при этом очищаем младший ненулевой бит
+	{
+		count++;
+	}
+	cout << count << endl;
+}
+
+
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	int a;
+	int b;
+	cout << "Введите число a,b" << endl;
+	cin >> a >> b;
+	Bits(a, b);
+	system("pause");
+	return 0;
+}
