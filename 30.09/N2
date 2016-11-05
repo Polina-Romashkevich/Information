@@ -1,0 +1,63 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+
+
+//разность
+void difference(int a,int b)
+{
+	int c;
+	int diff = 0;
+	c = -b;
+	diff = a + c;
+	cout << diff << endl;
+}
+
+//произведение
+void multiplication(int a, int b)
+{
+	if (a < b) {
+		return multiplication(b, a); //меняем местами,чтобы меньше было действий сложения
+	}
+	int sum = 0;
+	for (int i = abs(b); i > 0; i--)
+	{//складываем а друг с другом b раз
+		sum += a;
+	}
+	if (b < 0) //если b отрицательное меняем знак суммы
+	{
+		sum = -sum;
+	}
+	cout << sum << endl;
+}
+
+
+//частное
+void division(int a, int b)
+{
+	int div = 0;
+	{
+		while (a > b)//прибавляем единицу к частному, когда отнимаем от а b
+		{
+			a = a - b;
+			div++;
+		}
+	}
+	cout << div << endl;
+}
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	int a;
+	int b;
+	cout << "Введите число a,b" << endl;
+	cin >> a >> b;
+	difference(a,b);
+	multiplication(a,b);
+	division(a,b);
+	system("pause");
+	return 0;
+}
