@@ -1,0 +1,30 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+
+
+
+void add(int a, int b)
+{
+	if (b == 0)
+		cout << a << endl;
+	int sum = a ^ b;//сложение без переноса
+	int c = (a & b) << 1; //перенос без сложения
+		return add(sum, c); // рекурсия (зациклится скорее всего,но больше вариантов вернуть значение нет)
+}
+
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	int a;
+	int b;
+	cout << "Введите число a,b" << endl;
+	cin >> a >> b;
+	add(a, b);
+	cout << add << endl;
+	system("pause");
+	return 0;
+}
