@@ -1,0 +1,17 @@
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+
+int _tmain()
+{
+	int arr[19];
+	int key = 1;
+	for (int i = 0; i < 20; i++)
+	{
+		arr[i] = key;
+		key += 2;
+		cout << arr[i] << " , ";
+	}
+	system("pause");
+	return 0;
+}
