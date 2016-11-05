@@ -1,0 +1,34 @@
+#include "stdafx.h" 
+#include <iostream> 
+using namespace std;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "Russian");
+	int N;
+	int m;
+	int i;
+	i = 0;
+	cout << "Введите число" << endl;
+	cin >> N;
+	cout << "Введите число нужных разрядов" << endl;
+	cin >> m;
+	int N1;
+	N1 = N;
+	while (N1>0){
+		N1 = N1 / 10;
+		i++;
+	}
+	if (m > i){
+		cout << "Число разрядов превышает допустимое" << endl;
+		system("pause");
+		return 0;
+	}
+	i = i - m;
+	int l;
+	l = pow(10, i);
+	N = N / l;
+	cout << N << endl;
+	system("pause");
+	return 0;
+}
