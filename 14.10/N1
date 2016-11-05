@@ -1,0 +1,22 @@
+#include "stdafx.h" 
+#include <iostream> 
+using namespace std;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "Russian");
+	int i;
+	int M;
+	int N;
+	int sum = 0;
+	cout << "Введите M и N"<<endl;
+	cin >> M;
+	cin >> N;
+	for (i = 1; i <= M; i++)
+	{
+		sum = sum + pow(i, N);
+	}
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
