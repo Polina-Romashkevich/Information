@@ -1,0 +1,20 @@
+#include "stdafx.h" 
+#include <iostream> 
+using namespace std;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "Russian");
+	int x;
+	int y;
+	int z;
+	float length;
+	cout << "Введите x,y,z" << endl;
+	cin >> x;
+	cin >> y;
+	cin >> z;
+	length = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+	cout << length << endl;
+	system("pause");
+	return 0;
+}
