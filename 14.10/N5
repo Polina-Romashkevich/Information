@@ -1,0 +1,74 @@
+#include "stdafx.h" 
+#include <iostream> 
+using namespace std;
+
+int _tmain()
+{
+	setlocale(LC_ALL, "Russian");
+	unsigned int h1;
+	unsigned int m1;
+	unsigned int s1;
+	unsigned int h2;
+	unsigned int m2;
+	unsigned int s2;
+	int h3;
+	int m3;
+	int s3;
+	cout << "Введите первое время" << endl;
+	cin >> h1 >> m1 >> s1;
+	cout << "Введите второе время" << endl;
+	cin >> h2 >> m2 >> s2;
+
+	if ((h1 > 23) || (m1 > 59) || (s1 > 59) || (h2 > 23) || (m2 > 59) || (s2 > 59))
+	{
+		cout << "Некоректное время" << endl;
+		system("pause");
+		return 0;
+	}
+	int mem;
+	if (h2 > h1)
+	{
+		mem = h2;
+		h2 = h1;
+		h1 = mem;
+		mem = m2;
+		m2 = m1;
+		m1 = mem;
+		mem = s2; 
+		s2 = s1;
+		s1 = mem;
+	}
+	if ((h2 = h1) && (m2 > m1))
+	{
+		mem = m2;
+		m2 = m1;
+		m1 = mem;
+		mem = s2;
+		s2 = s1;
+		s1 = mem;
+	}
+	if ((h2 = h1) && (m2 = m1) && (s2>s1))
+	{
+		mem = s2; 
+		s2 = s1;
+		s1 = mem;
+	}
+	int dif = 0;
+	s3 = s2 - s1;
+	if (s3 < 0)
+	{
+		s3 += 60; dif = 1;
+	}
+	m3 = m2 - m1 - dif;
+	dif = 0;
+	if (m3 < 0)
+	{
+		m3 += 60;
+		dif = 1;
+	}
+	h3 = (h2 - h1 - dif);
+
+	cout << endl << "Разница во времени: " << abs(h3) << ":" << m3 << ":" << s3 << endl;
+	system("pause");
+	return 0;
+}
