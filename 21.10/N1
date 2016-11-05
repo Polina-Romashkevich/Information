@@ -1,0 +1,66 @@
+#include "stdafx.h"
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+double* givemem(double* startP, int size);
+void zaparr(double* ptrA, int size);
+void showarr(double* ptrA, int size);
+double* freemem(double* ptrA);
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	double* pArrF = 0;
+	char userAnswer = 0;
+
+	while (userAnswer == 0)
+	{
+		int size = 0;
+		cout << "Размер массива: ";
+		cin >> size;
+
+		pArrF = givemem(pArrF, size);
+		zaparr(pArrF, size);
+		showarr(pArrF, size);
+		pArrF = freemem(pArrF);
+
+		cout << "Нажмите 0, чтобы продолжить";
+		cin >> userAnswer;
+	}
+
+	return 0;
+}
+
+double* givemem(double* ptrA, int size)
+{
+	ptrA = new double[size];
+	return ptrA;
+}
+
+void zaparr(double* ptrA, int size)
+{
+	srand(time(NULL));
+	for (int i = 0; i < size; i++)
+	{
+		ptrA[i] = rand() % 100 + 1;
+	}
+}
+
+void showarr(double* ptrA, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << ptrA[i] << "  ";
+	}
+	cout << endl;
+}
+
+double*  freemem(double* ptrA)
+{
+	delete[] ptrA;
+	ptrA = 0;
+
+	return ptrA;
+}
