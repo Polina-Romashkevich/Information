@@ -1,0 +1,80 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+	string data1;
+	string data2;
+	Node *p;
+};
+Node *  primaryInitialization(string data);
+void    add(Node **pEnd, string data1, string data2);
+string    propulsion1(Node **pBegin);
+
+int _tmain()
+{
+	int n;
+	setlocale(LC_ALL, "rus");
+	string string1;
+	cout << "Введите количество учеников" << endl;
+	cin >> n;
+	string arr[6];
+	cout << "Введите класс (от 5 до 9) и фамилию ученика" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> string1;
+		arr[i] = string1;
+	}
+	Node *pBegin = primaryInitialization("Список учеников");
+	Node *pEnd = pBegin;
+	
+	for (int j = 5; j <= 9; j++)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			string1 = arr[i];
+			if (string1.substr(0, 1) == to_string(j))
+			{
+				
+				string1.erase(0, 2);
+				add(&pEnd, to_string(j), string1);
+
+			}
+			
+		}
+	}
+	while (pBegin) cout << propulsion1(&pBegin) << endl;
+	system("pause");
+	return 0;
+}
+
+Node * primaryInitialization(string data)
+{
+	Node *pV = new Node;
+	pV->data1 = data;
+	pV->data2 = "";
+	pV->p = 0;
+	return pV;
+}
+
+void add(Node **pEnd, string data1, string data2)
+{
+	Node *pV = new Node;
+	pV->data1 = data1;
+	pV->data2 = data2;
+	pV->p = 0;
+	(*pEnd)->p = pV;
+	*pEnd = pV;
+}
+
+
+string propulsion1(Node **pBegin) {
+	string temp = (*pBegin)->data1;
+	string temp1 = (*pBegin)->data2;
+	string temp2 = temp +" "+ temp1;
+	Node *pV = *pBegin;
+	*pBegin = (*pBegin)->p;
+	delete pV;
+	return temp2;
+}
