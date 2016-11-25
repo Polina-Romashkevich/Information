@@ -1,0 +1,49 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Tiles {
+
+public:
+	string Brand;
+	int Size_h;
+	int Size_w;
+	int Price;
+
+	Tiles(string Brand, int Size_h, int Size_w, int Price) {
+		this->Brand = Brand;
+		this->Size_h = Size_h;
+		this->Size_w = Size_w;
+		this->Price = Price;
+	}
+
+	string getBrand() {
+		return this->Brand;
+	}
+
+	int getSize_h() {
+		return this->Size_h;
+	}
+	int getSize_w() {
+		return this->Size_w;
+	}
+	int getPrice() {
+		return this->Price;
+	}
+	void setTiles(string Brand, int Size_h, int Size_w, int Price){
+		this->Brand = Brand;
+		this->Size_h = Size_h;
+		this->Size_w = Size_w;
+		this->Price = Price;
+	}
+};
+
+int _tmain() {
+	Tiles newTiles("Tif",12,15,888);
+	cout << newTiles.getBrand() << " " << newTiles.getSize_h() << " " << newTiles.getSize_w() << " " << newTiles.getPrice() << endl;
+
+	newTiles.setTiles("Plov", 22, 3, 1100);
+	cout << newTiles.getBrand() << " " << newTiles.getSize_h() << " " << newTiles.getSize_w() << " " << newTiles.getPrice() << endl;
+	system("pause");
+}
