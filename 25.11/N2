@@ -1,0 +1,54 @@
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+
+class Quadratic {
+
+public:
+	int a;
+	int b;
+	int c;
+	float discriminant;
+	float x1;
+	float x2;
+
+	Quadratic(int a, int b, int c) {
+		this->a = a;
+		this->b = b;
+		this->c = c;
+		this->discriminant = 0;
+		this->x1 = 0;
+		this->x2 = 0;
+	}
+
+	float getdiscriminant() {
+     this->discriminant = (this->b)*(this->b) - 4 *(this->a)*(this->c);
+		return this->discriminant;
+	}
+	float getx1() {
+		this->x1 = ((this->b)*(-1) - sqrt(this->discriminant)) / 2 / this->a;
+		return this->x1;
+	}
+	float getx2() {
+		this->x2 = ((this->b)*(-1) + sqrt(this->discriminant)) / 2 / this->a;
+		return this->x2;
+	}
+};
+
+int _tmain() {
+	int a;
+	int b;
+	int c;
+	setlocale(LC_ALL, "rus");
+	cout << "Введите коэффициенты a,b,c" << endl;
+	cin >> a >> b >> c;
+	Quadratic newQuadratic(a, b, c);
+	if (newQuadratic.getdiscriminant() < 0)
+	{
+		cout << "Нет действительных корней"<<endl;
+	}
+	else
+	cout << newQuadratic.getdiscriminant() << " " << newQuadratic.getx1() << " " << newQuadratic.getx2() << endl;
+	system("pause");
+	return 0;
+}
