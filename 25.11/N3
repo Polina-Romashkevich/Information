@@ -1,0 +1,128 @@
+#include "stdafx.h" 
+#include <iostream> 
+using namespace std;
+
+class Time {
+public:
+	int hours;
+	int minutes;
+	int seconds;
+
+	Time(int hours, int minutes, int seconds) {
+		this->hours = hours;
+		this->minutes = minutes;
+		this->seconds = seconds;
+	}
+
+	void setTime(int hours, int minutes, int seconds) {
+		this->hours = (hours >= 0 && hours  <24) ? hours : 0;
+		this->minutes = (minutes >= 0 && minutes < 60) ? minutes : 0;
+		this->seconds = (seconds >= 0 && seconds < 60) ? seconds : 0;
+
+	}
+
+	void setTime2(int hours, int minutes, int seconds) {
+		this->hours = hours;
+		this->minutes = minutes;
+		this->seconds = seconds;
+
+	}
+
+	int gethours() {
+		return this->hours;
+	}
+
+	int getminutes() {
+		return this->minutes;
+	}
+
+	int getseconds() {
+		return this->seconds;
+	}
+	void timeAM_timePM() {
+		cout << (this->hours == 0 || this->hours == 12 ? 12 : this->hours % 12);
+		cout << ":" << (this->minutes <10 ? "0" : "") << this->minutes;
+		cout << ":" << (this->seconds <10 ? "0" : "") << this->seconds;
+		cout << (this->hours<12 ? " AM" : " PM") << endl;
+
+	}
+	void timeUss() {
+		cout << this->hours << ":" << this->minutes << ":" << this->seconds << endl;
+	}
+};
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	int h;
+	int m; 
+	int s;
+	cout << "Введите первое время" << endl;
+	cin >> h >> m >> s;
+	Time newTime(0, 0, 0);
+	newTime.setTime(h, m, s);
+	cout << "Введите второе время" << endl;
+	cin >> h >> m >> s;
+	Time newTime2(0, 0, 0);
+	newTime2.setTime(h, m, s);
+	Time newTemp(0, 0, 0);
+
+	if ((newTime2.gethours()<newTime.gethours()) || ((newTime2.gethours() == newTime.gethours()) && ((newTime2.getminutes()<newTime.getminutes()))) || (((newTime2.gethours() == newTime.gethours()) && ((newTime2.getminutes() == newTime.getminutes())) && ((newTime2.getseconds()<newTime.getseconds())))))
+	{
+		newTemp.setTime(newTime2.gethours(), newTime2.getminutes(), newTime2.getseconds());
+		newTime2.setTime(newTime.gethours(), newTime.getminutes(), newTime.getseconds());
+		newTime.setTime(newTemp.gethours(), newTemp.getminutes(), newTemp.getseconds());
+	}
+
+	Time newTime3(0, 0, 0);
+	int res = 0;
+	int s_res = 0;
+	int m_res = 0;
+	int h_res = 0;
+	s_res = newTime.getseconds() + newTime2.getseconds();
+	if (s_res > 60)
+	{
+		s_res -= 60;
+		res = 1;
+	}
+	m_res = newTime.getminutes() + newTime2.getminutes() + res;
+	res = 0;
+	if (m_res > 60)
+	{
+		m_res -= 60;
+		res = 1;
+	}
+	h_res= newTime.gethours() + newTime2.gethours() + res;
+
+	Time newTime4(0, 0, 0);
+	int dif = 0;
+	int s_dif = 0; 
+	int m_dif = 0; 
+	int h_dif = 0;
+	s_dif = newTime2.getseconds() - newTime.getseconds();
+	if (s_dif < 0)
+	{
+		s_dif += 60;
+		dif = 1;
+	}
+	m_dif = newTime2.getminutes() - newTime.getminutes() - dif;
+	dif = 0;
+	if (m_dif < 0)
+	{
+		m_dif += 60;
+		dif = 1;
+	}
+	h_dif = newTime2.gethours() - newTime.gethours() - dif;
+
+	newTime3.setTime2(abs(h_res), abs(m_res), abs(s_res));
+	newTime4.setTime(abs(h_dif), abs(m_dif), abs(s_dif));
+	cout << "Меньшее время =" << endl;
+	newTime.timeAM_timePM();
+	cout << "Большее время =" << endl;
+	newTime2.timeAM_timePM();
+	cout << "Сумма = ";
+	newTime3.timeUss();
+	cout << "Разница = ";
+	newTime4.timeUss();
+	system("pause");
+	return 0;
+}
