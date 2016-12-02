@@ -1,0 +1,115 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Product {
+
+private:
+
+	string name;
+	int cost;
+	int weight;
+
+public:
+
+	Product()
+	{
+		name = " ";
+		cost = 0;
+		weight = 0;
+	}
+
+	Product(string name, int cost, int weight) {
+
+		this->name = name;
+		this->cost = cost;
+		this->weight = weight;
+
+	};
+
+	int getCost() {
+		return this->cost;
+	}
+
+	int getWeight() {
+		return this->weight;
+	}
+
+	void ShowData() const {
+		cout << "Товар: " << name << endl;
+		cout << "Цена: " << cost << endl;
+		cout << "Вес: " << weight << endl;
+	}
+};
+
+class Buy :public Product {
+
+private:
+
+	int quantity;
+	int cost_for_all;
+	int weight_for_all;
+
+public:
+
+	Buy() :Product()
+	{
+		quantity = 0;
+		cost_for_all = 0;
+		weight_for_all = 0;
+	};
+
+	Buy(int Q)
+	{
+		quantity = Q;
+		int temp1 = getCost();
+		int temp2 = getWeight();
+		cost_for_all = temp1*Q;
+		weight_for_all = temp2*Q;
+	}
+
+	Buy(string n, int c, int w, int Q) : Product(n, c, w)
+	{
+		quantity = Q;
+		cost_for_all = Q* getCost();;
+		weight_for_all = Q* getWeight();
+	}
+
+	void ShowData()   const
+	{
+		cout << "Товара куплено: " << quantity << endl;
+		cout << "\n";
+		cout << "На суму: " << cost_for_all << endl;
+		cout << "Общий вес: " << weight_for_all << endl;
+	}
+
+};
+
+class Check :private Buy {
+
+public:
+	Check() : Buy()
+	{
+	};
+
+	Check(string n, int c, int w, int Q1) : Buy(n, c, w, Q1)
+	{
+	}
+
+	void ShowData() const {
+		Product::ShowData();
+		Buy::ShowData();
+	}
+
+};
+
+
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	Check newCheck("Лапша", 150, 12, 4);
+	newCheck.ShowData();
+	system("pause");
+	return 0;
+}
