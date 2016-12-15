@@ -1,0 +1,58 @@
+#include "stdafx.h"
+#include <string.h>
+#include <iostream>
+using namespace std;
+
+class People {
+
+private:
+	string name;
+	string nationality;
+	int age;
+public:
+	People();
+	People(string name, string nationality, int age)
+	{
+		this->name = name;
+		this->nationality = nationality;
+		this->age = age;
+	}
+	virtual string getName() const;
+	virtual string getNationality() const;
+	virtual int getAge() const;
+};
+
+class Women : People
+{
+private:
+	string hair_color;
+public:
+	string getName() const;
+	string getNationality() const;
+	int getAge() const;
+	string getHair_color;
+	unsigned int weight;
+	unsigned int height;
+	Women(string name, string nationality, int age, string hair_color){
+	}
+	void setWom(string name, string nationality, int age){
+	}
+	void setWoman(unsigned int weight, unsigned int height){
+		this->weight = weight;
+		this->height = height;
+	}
+	int getWeight() {
+		cout << "Вес:" << this->weight << endl;
+		return this->weight;
+	}
+	int getHeight() {
+		cout << "Рост:" << this->height << endl;
+		return this->height;
+	}
+};
+int _tmain()
+{
+	setlocale(LC_ALL, "russian");
+	Women *first = new Women("Victoria", "Russian", 24, "Black");
+	return 0;
+}
