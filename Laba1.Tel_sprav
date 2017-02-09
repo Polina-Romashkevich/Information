@@ -1,1 +1,53 @@
 
+
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Tel {
+	string FIO;
+	string Num_Tel;
+	int state;
+};
+
+class Tel_dir {
+
+private:
+	int Size;
+	int Tek_size;
+	Tel* mas;
+
+public:
+	Tel_dir(int _Size)//конструктор
+	{
+		Size = _Size;
+		Tek_size = 0;
+		mas = new Tel[_Size];
+		for (int i = 0; i < Size; i++)
+		{
+			mas[i].state = 0;
+		}
+	}
+
+	~Tel_dir()
+	{
+	delete[] mas;
+	}
+	void print_F()
+	{
+		for (int i = 0; i < Size; i++)
+		{
+			cout << i << " " << mas[i].FIO << " " << mas[i].Num_Tel << " " << mas[i].state;
+		}
+	}
+};
+
+int _tmain()
+{
+	Tel_dir A[10];
+	A.print_F();
+	return 0;
+}
+
+
