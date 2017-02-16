@@ -1,22 +1,36 @@
-
-
 #include "stdafx.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-struct Tel {
+struct Tel 
+{
 	string FIO;
 	string Num_Tel;
 	int state;
 };
 
-class Tel_dir {
+class Tel_dir
+{
 
 private:
 	int Size;
 	int Tek_size;
 	Tel* mas;
+
+	int Hash1(string _keyFIO)
+	{
+		int h = 0;
+		for (int i = 0; i < _keyFIO.length(); i++)
+		{
+			h = h + int(_keyFIO[i]);
+		}
+		return h % Size;
+	}
+	int Hash2(unsigned int _key, int j)
+	{
+		return (_key + j*j) % Size;
+	}
 
 public:
 	Tel_dir(int _Size)//конструктор
@@ -32,22 +46,153 @@ public:
 
 	~Tel_dir()
 	{
-	delete[] mas;
+		delete[] mas;
 	}
+
+	void print()
+	{
+		for (int i = 0; i < Size; i++)
+		{
+			if (mas[i].state == 1)
+				cout << i << " " << mas[i].FIO << " " << mas[i].Num_Tel << " " << mas[i].state << endl;
+		}
+	}
+
 	void print_F()
 	{
 		for (int i = 0; i < Size; i++)
 		{
-			cout << i << " " << mas[i].FIO << " " << mas[i].Num_Tel << " " << mas[i].state;
+			cout << i << " " << mas[i].FIO << " " << mas[i].Num_Tel << " " << mas[i].state << endl;
 		}
 	}
-};
 
-int _tmain()
-{
-	Tel_dir A[10];
-	A.print_F();
-	return 0;
-}
+	int Add(string _FIO, string _Num_Tel)
+	{
+		int pos = Hash1(_FIO);
+		if (mas[pos].state == 0)
+		{
+			mas[pos].FIO = _FIO;
+			mas[pos].Num_Tel = _Num_Tel;
+			mas[pos].state = 1;
+			Tek_size++;
+			cout << "Добавление прошло успешно(1)" << endl;
+			return 1;
+		}
+		else
+		{
+			int j = 1;
+			while ((mas[pos].state != 0) && (j <= 2 * Size))
+			{
+				pos = Hash2(pos, j);
+				j++;
+			}
 
+			if (j > 2 * Size)
+			{
+				cout << "Добавление невозможно" << endl;
+				return 2;
+			}
+			else
+			{
+				mas[pos].FIO = _FIO;
+				mas[pos].Num_Tel = _Num_Tel;
+				mas[pos].state = 1;
+				Tek_size++;
+				cout << "Добавление прошло успешно(2)" << endl;
+				return 1;
+			}
+		}
+	}
+
+	int Poisk(string _FIO)
+	{
+		int pos = Hash1(_FIO);
+		if (mas[pos].FIO == _FIO)
+		{
+			cout << "Элемент найден" << endl;
+			return pos;
+		}
+		else
+		{
+			int j = 1;
+			while ((mas[pos].FIO != _FIO) && (j <= 2 * Size))
+			{
+				pos = Hash2(pos, j);
+				j++;
+			}
+			if (j > 2 * Size)
+			{
+				cout << "Элемент не найден" << endl;
+				return -1;
+			}
+			else
+			{
+				cout << "Элемент найден" << endl;
+				return pos;
+			}
+		}
+	}
+
+	int Del(string _FIO)
+	{
+		int pos = Poisk(_FIO);
+		if (pos == -1)
+		{
+			cout << "Элемент, который нужно удалить, не существует" << endl;
+			return -1;
+		}
+		else
+		{
+			int j = 1;
+			int k = 1;
+			while ((mas[pos + k].state == 0) && (k <= Size))
+			{
+				j++;
+			k = j*j;
+			}
+			if ((mas[pos + k].state == 0) || (Hash1(mas[pos + k].FIO) != Hash1(_FIO)))//проверка на место записи по коллизии или она там и должна быть
+			{
+				mas[pos].state = 0;
+				mas[pos].FIO = "";
+				mas[pos].Num_Tel = "";
+				cout << "Произведено удаление без сдвигов" << endl;
+				return 1;
+			}
+			mas[pos].FIO = mas[pos + k].FIO;
+			mas[pos].Num_Tel = mas[pos + k].Num_Tel;
+			mas[pos + k].FIO = "";
+			mas[pos + k].Num_Tel = "";
+			mas[pos + k].state = 0;
+			pos += k;//???
+			cout << "Произведено удаление со сдвигом" << endl;
+			pos = pos%Size;
+				}
+		}
+
+	};
+
+
+
+	int _tmain()
+	{
+		setlocale(LC_ALL, "russian");
+		Tel_dir Dir(10);
+		string f = "ABBZ";
+		string t = "01239";
+
+		for (int i = 0; i < 10; i++)
+		{
+			Dir.Add(f, t);
+			f[0]++;
+			f[3]--;
+			t[4]--;
+		}
+		Dir.Del("ABBZ");
+		Dir.print_F();
+		cout << "--------------" << endl;
+		Dir.print();
+		
+		system("pause");
+		return 0;
+	}
 
